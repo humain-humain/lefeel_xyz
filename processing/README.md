@@ -2,7 +2,7 @@
 
 #### Draw sensors matrix
 
-![Draw sensors matrix](../img/matrice1.gif)
+![Draw sensors matrix](../docs/img/matrice1.gif)
 
 ```java
 for(int i=0; i<=maxNumberOfSensors-1; i++){
@@ -18,7 +18,7 @@ for(int i=0; i<=maxNumberOfSensors-1; i++){
 
 #### Draw points where pressure is high
 
-![Draw points where pressure is high](../img/matrice2.gif)
+![Draw points where pressure is high](../docs/img/matrice2.gif)
 
 ```java
 int threshold = 180;
@@ -33,7 +33,7 @@ if(sensorValue[i] > threshold){
 
 #### Search for the barycenter of these points
 
-![Search for the barycenter of these points](../img/barycentre.gif)
+![Search for the barycenter of these points](../docs/img/barycentre.gif)
 
 ```java
 for(int i=0; i<=maxNumberOfSensors-1; i++){
