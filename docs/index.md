@@ -4,7 +4,7 @@
 
 ![Draw sensors matrix](img/matrice1.gif)
 
-```
+```java
 for(int i=0; i<=maxNumberOfSensors-1; i++){
 	if(i % cols == 0 && i != 0){
 		addCols++;
@@ -16,29 +16,47 @@ for(int i=0; i<=maxNumberOfSensors-1; i++){
 }  
 ```
 
-#### draw points where the pression is high
+#### Draw points where pressure is high
 
-![draw points where the pression is high](img/matrice2.gif)
+![Draw points where pressure is high](img/matrice2.gif)
 
-```
-if(sensorValue[i] > 100){
-	fill(255,0,0);
-	ellipse(((width/2-mapWidth/2)+addRow*rectSize)+rectSize/2, ((height/2-mapHeight/2)+addCols*rectSize)+rectSize/2, rectSize/3, rectSize/3);
-	ellipsCount++;
+```java
+int threshold = 180;
+int thresholdCount = 0;
+
+if(sensorValue[i] > threshold){
+  fill(168,223,242);
+  rect(((width/2-mapWidth/2)+addRow*rectSize), ((height/2-mapHeight/2)+addCols*rectSize), rectSize,rectSize);
+  thresholdCount++;
 }
 ```
 
-#### Looking for the barycenter of this points
+#### Search for the barycenter of these points
 
-![Looking for the barycenter of this points](img/barycentre.gif)
+![Search for the barycenter of these points](img/barycentre.gif)
 
-```
-barycentreX += ((width/2-mapWidth/2)+addRow*rectSize)+rectSize/2;
-barycentreY +=((height/2-mapHeight/2)+addCols*rectSize)+rectSize/2;
-      
-barycentreX = barycentreX/ellipsCount;
-barycentreY = barycentreY/ellipsCount;
+```java
+for(int i=0; i<=maxNumberOfSensors-1; i++){
+  if(i % cols == 0 && i != 0){
+    addCols++;
+    addRow = 0;
+  }
+  
+  noStroke();
+  fill(sensorValue[i]);
+  rect((width/2-mapWidth/2)+addRow*rectSize, (height/2-mapHeight/2)+addCols*rectSize, rectSize,rectSize);
+  
+  if(sensorValue[i] > threshold){
+   barycentreX += ((width/2-mapWidth/2)+addRow*rectSize)+rectSize/2;
+   barycentreY +=((height/2-mapHeight/2)+addCols*rectSize)+rectSize/2;
+   
+   thresholdCount++;
+  }
+   addRow++;
+}
 
-fill(0,255,0);
-ellipse(barycentreX,barycentreY,rectSize,rectSize);
+//Barycentre
+barycentreX = barycentreX/thresholdCount;
+barycentreY = barycentreY/thresholdCount;
+println("x : "+barycentreX+" y : "+barycentreY);
 ```

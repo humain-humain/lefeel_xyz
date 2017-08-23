@@ -30,7 +30,7 @@ float[] sensorValue = new float[maxNumberOfSensors];    // global variable for s
 //float[] previousValue = new float[maxNumberOfSensors];  // array of previous values
 
 float barycentreX,barycentreY,last_barycentreX,last_barycentreY;
-int ellipsCount = 0;
+int thresholdCount = 0;
 
 int threshold = 180;
 
@@ -73,14 +73,14 @@ void draw(){
       //fill(168,223,242);
       //rect(((width/2-mapWidth/2)+addRow*rectSize), ((height/2-mapHeight/2)+addCols*rectSize), rectSize,rectSize);
       
-      ellipsCount++;
+      thresholdCount++;
     }
     addRow++;
   }
   
   //Barycentre
-  barycentreX = barycentreX/ellipsCount;
-  barycentreY = barycentreY/ellipsCount;
+  barycentreX = barycentreX/thresholdCount;
+  barycentreY = barycentreY/thresholdCount;
   println("x : "+barycentreX+" y : "+barycentreY);
   
   /*if (Float.isNaN(barycentreX)){
@@ -100,7 +100,7 @@ void draw(){
   
   addRow = 0;
   addCols = 0;
-  ellipsCount = 0;
+  thresholdCount = 0;
   
   //if (barycentreX != Float.NaN){
     last_barycentreX = barycentreX;
