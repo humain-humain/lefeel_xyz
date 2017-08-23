@@ -12,7 +12,7 @@ We wrote a tutorial to realize this textile device :
 
 ###### Credit
 
-- Concept and Design : [Humain–Humain.fr](http://humain–humain.fr)
+- Concept and Design : [Humain–Humain.fr](http://humain-humain.fr)
 - Development : Bastien DIDIER
 
 ###### Gallery
