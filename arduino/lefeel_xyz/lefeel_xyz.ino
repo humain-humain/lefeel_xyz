@@ -2,8 +2,6 @@
  * LeFeel (XYZ version), 2017
  * Update: 02/08/17
  * 
- * TODO : print MaxData à la fin d'une session d'utilisation pour connaitre les valeurs
- * 
  * V1.05
  * Written by Bastien DIDIER
  * more info : https://github.com/humain-humain/lefeel
@@ -33,9 +31,6 @@ int min_row_data[12];
 int col_data[12];
 int max_col_data[12];
 int min_col_data[12];
-
-int threshold = 15;
-int pixel_at_threshold = 0;
 
 void setup() {
   Serial.begin(115200);
@@ -68,9 +63,7 @@ void setup() {
     max_row_data[i] = min_row_data[i] = row_data[i];
     max_col_data[i] = min_col_data[i] = col_data[i];
   }
-  
-  static_data();
-  
+    
   Serial.println("lefeel begin…");
 }
 
@@ -85,49 +78,16 @@ void loop() {
       row_data[i] = row.filteredData(i);
     
       if(row_data[i] > max_row_data[i]){max_row_data[i]=row_data[i];}
-      //else if(row_data[i] < min_row_data[i]){min_row_data[i]=row_data[i];}
+      else if(row_data[i] < min_row_data[i]){min_row_data[i]=row_data[i];}
     
       col_data[j] = col.filteredData(j);
   
       if(col_data[j] > max_col_data[j]){max_col_data[j]=col_data[j];}
-      //else if(col_data[j] < min_col_data[j]){min_col_data[j]=col_data[j];}
+      else if(col_data[j] < min_col_data[j]){min_col_data[j]=col_data[j];}
 
-      if(map(row_data[i], max_row_data[i],min_row_data[i], 0,9)+map(col_data[j], max_col_data[j],min_col_data[j], 0,9) >= threshold){
-        pixel_at_threshold++;  
-      }
-      
       Serial.print(map(row_data[i], max_row_data[i],min_row_data[i], 0,9)+map(col_data[j], max_col_data[j],min_col_data[j], 0,9));
       Serial.print(",");
     }
   }
-  Serial.println(); 
-
-  //TODO
-  if(pixel_at_threshold = 0){
-    Serial.print("… Static Data");
-    static_data();
-  }
-
-  pixel_at_threshold=0;
-}
-
-
-void static_data(){
-
-  int nb_sample = 100;
-  
-  for (uint8_t i=0; i<12; i++) {
-    for(uint8_t i=0; i<=nb_sample; i++){
-      row_data[i] = row.filteredData(i);
-      col_data[i] = col.filteredData(i);
-      
-      min_row_data[i] += row_data[i];
-      min_col_data[i] += col_data[i];
-    }
-  }
-
-  for (uint8_t i=0; i<12; i++) {    
-      min_row_data[i] = min_row_data[i]/nb_sample;
-      min_col_data[i] = min_col_data[i]/nb_sample;
-  }
+  Serial.println();  
 }
